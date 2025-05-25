@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عروض تيشيرتات الصيف - Big Dream</title>
+  <style>
+  .product {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .product.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+    body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fefefe;
+  margin: 0;
+  padding: 0;
+  color: #2c2c2c;
+}
+    header {
+  background-color: #ff7b39;
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #333;
+    }
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    nav a:hover {
+  background-color: #ff7b39;
+  color: black;
+}
+    .hero {
+      background-image: url('https://images.unsplash.com/photo-1602810317243-b03e4f7c84a5');
+      background-size: cover;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 36px;
+      text-shadow: 1px 1px 5px #000;
+      position: relative;
+    }
+    .countdown {
+      position: absolute;
+      bottom: 10px;
+      background: rgba(0,0,0,0.5);
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    .impact-message {
+      background: #ffeb99;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 40px 20px;
+    }
+    .product {
+      border: 1px solid #ddd;
+      margin: 15px;
+      padding: 15px;
+      width: 220px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #fff;
+    }
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+    }
+    .product img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+    .product p {
+      color: #555;
+    }
+    .product span.price {
+      display: block;
+      margin-top: 5px;
+      font-weight: bold;
+      color: #ff6600;
+    }
+    .product button {
+  background-color: #ff7b39;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+    .product button:hover {
+  background-color: #e8772d;
+}
+    footer {
+  background-color: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+  </style>
+<style id="dark-mode-style"></style>
+<style>
+  .fade-in {
+    animation: fadeIn 1.5s ease-in-out forwards;
+    opacity: 0;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+</style>
+</head>
+<body style="scroll-behavior: smooth;">
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.classList.add("fade-in");
+    });
+  </script>
+  <header>عروض تيشيرتات الصيف - Big Dream</header>
+  <nav>
+    <a href="#products">المنتجات</a>
+    <a href="#gift">الهدايا</a>
+    <a href="#order">طلب سريع</a>
+    <a href="#">الرئيسية</a>
+    <a href="#">عروض الصيف</a>
+    <a href="#">اتصل بنا</a>
+  <button onclick="toggleDarkMode()" style="margin: 10px; padding: 8px 12px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">🌙 الوضع الليلي</button>
+</nav>
+  <div class="hero">
+    احصل على أفضل تيشيرتات لصيف 2025!
+    <div class="countdown" id="countdown">ينتهي العرض خلال: --:--:--</div>
+  </div>
+  <div class="impact-message">
+    🎁 لا تفوّت فرصة الحصول على صندوق الهدايا المجاني عند الشراء فوق 300 درهم!
+
+    🌴 لا تخلي الصيف يفوتك بلا ستايل! اكتشف تشكيلتنا الصيفية الآن
+  </div>
+<div style="text-align:center; margin: 20px auto;">
+  <label for="filter">تصفية حسب النوع:</label>
+  <select id="colorFilter" onchange="filterProducts()">
+    <option value="all">كل الألوان</option>
+    <option value="أبيض">أبيض</option>
+    <option value="وردي">وردي</option>
+    <option value="رمادي">رمادي</option>
+    <option value="أسود">أسود</option>
+  </select>
+  <select id="priceFilter" onchange="filterProducts()">
+    <option value="all">كل الأثمنة</option>
+    <option value="<80">أقل من 80 درهم</option>
+    <option value="=80">80 درهم</option>
+    <option value=">80">أكثر من 80 درهم</option>
+  </select>
+  <select id="filter" onchange="filterProducts()">
+    <option value="all">الكل</option>
+    <option value="رجالي">رجالي</option>
+    <option value="نسائي">نسائي</option>
+    <option value="أطفال">أطفال</option>
+  </select>
+  <select id="sizeFilter" onchange="filterProducts()">
+    <option value="all">كل المقاسات</option>
+    <option value="S">S</option>
+    <option value="M">M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+  </select>
+    <option value="all">الكل</option>
+    <option value="رجالي">رجالي</option>
+    <option value="نسائي">نسائي</option>
+    <option value="أطفال">أطفال</option>
+  </select>
+</div>
+
+<section class="products" id="products">
+    <div class="product" data-category="رجالي">
+      <img src="C:\Users\pc\Downloads\1703670243998-5f2523f32d2d4bf6a6695b7532fef3e6-goods.webp" alt="تيشيرت أبيض">
+      <h3>تيشيرت Big Dream أبيض</h3>
+      <p>قماش ناعم صيفي - 100% قطن</p>
+      <span class="price">80 درهم</span>
+      <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20هذا%20التيشيرت%20من%20متجر%20Big%20Dream" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+    </div>
+    <div class="product" data-category="نسائي" data-size="M" data-color="وردي">
+      <img src="C:\Users\pc\Downloads\H69ad00ea1a124185ac2ce549b91335a5E.jpg_300x300.avif" alt="تيشيرت وردي">
+      <h3>تيشيرت صيفي وردي</h3>
+      <p>راحة وأناقة للبنات في الصيف</p>
+      <span class="price">80 درهم</span>
+      <button>اشترِ الآن</button>
+    </div>
+    <div class="product" data-category="رجالي" data-size="L" data-color="رمادي">
+      <img src="C:\Users\pc\Downloads\217006218_multi_e1.webp" alt="تيشيرت رمادي">
+      <h3>تيشيرت رمادي خفيف</h3>
+      <p>مناسب للأيام الحارة - تصميم أنيق</p>
+      <span class="price">80 درهم</span>
+      <button>اشترِ الآن</button>
+    </div>
+    <div class="product" data-category="أطفال">
+      <img src="C:\Users\pc\Downloads\tee-shirt-dream-big-shorts-kid.jpg" alt="تيشيرت أطفال" />
+      <h3>تيشيرت للأطفال</h3>
+      <p>مريح ومناسب للنشاطات الصيفية</p>
+      <span class="price">80 درهم</span>
+      <button>اشترِ الآن</button>
+    </div>
+    <div class="product">
+    <img src="C:\Users\pc\Downloads\afa5ad5f-2e85-456f-9c48-67ca742538a8.png" alt="تيشيرت رجالي">
+    <h3>تيشيرت رجالي صيفي</h3>
+    <p>ستايل عصري - جودة ممتازة</p>
+    <span class="price">80 درهم</span>
+    <button>اشترِ الآن</button>
+  </div>
+  <div class="product" data-category="نسائي">
+      <img src="C:\Users\pc\Downloads\1aEJ2GMhPTnyrje6WCyGsC1GfUn4DUtaTxQqnvrq.webp" alt="تيشيرت نسائي" />
+    <h3>تيشيرت نسائي كاجوال</h3>
+    <p>راحة وأناقة لجميع الأوقات</p>
+    <span class="price">80 درهم</span>
+    <button>اشترِ الآن</button>
+  </div>
+  <div class="product" data-category="أطفال" data-size="S" data-color="أزرق">
+    <img src="C:\Users\pc\Downloads\71jcE-LnJmL._AC_SR462,693_.jpg" alt="تيشيرت أولاد">
+    <h3>تيشيرت أولاد</h3>
+    <p>مناسب للعب والنشاطات الخارجية</p>
+    <span class="price">80 درهم</span>
+    <button>اشترِ الآن</button>
+  </div>
+  <div class="product">
+    <img src="C:\Users\pc\Downloads\71N+XykFzRL._AC_SL1200_.jpg" alt="تيشيرت بنات">
+    <h3>تيشيرت بنات صيفي</h3>
+    <p>ألوان جذابة وتصميم مريح</p>
+    <span class="price">80 درهم</span>
+    <button>اشترِ الآن</button>
+  </div>
+  <div class="product" data-category="رجالي" data-size="M" data-color="أبيض">
+    <img src="C:\Users\pc\Downloads\fade6e58-0b07-43fd-861a-d3fef593ca66 (1).png" alt="تيشيرت حلم كبير رجالي">
+    <h3>تيشيرت حلم كبير رجالي</h3>
+    <p>تيشيرت أبيض برسالة 'حلم كبير' بالخط العربي العصري</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20حلم%20كبير%20رجالي" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="أطفال" data-size="S" data-color="أبيض">
+    <img src="C:\Users\pc\Downloads\1700893039230-6400bbf7e47647d0b6a2aba468b328fc-goods.jpeg" alt="تيشيرت حلم كبير للأطفال">
+    <h3>تيشيرت حلم كبير للأطفال</h3>
+    <p>تصميم ممتع للأطفال برسالة 'حلم كبير' باللغة العربية</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20حلم%20كبير%20للأطفال" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="نسائي" data-size="M" data-color="أبيض">
+    <img src="C:\Users\pc\Downloads\comfortcolorstee-white_5f4cc816-08d1-41f5-9231-5efe1bb7957f.webp" alt="تيشيرت حلم كبير نسائي">
+    <h3>تيشيرت حلم كبير نسائي</h3>
+    <p>تيشيرت أبيض برسالة عربية أنيقة 'حلم كبير' للنساء</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20حلم%20كبير%20نسائي" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="رجالي" data-size="L" data-color="أزرق">
+    <img src="C:\Users\pc\Downloads\86867634-7d19-464c-873c-7ae1c4c2b271-1000x723.webp" alt="تيشيرت صيفي أزرق رجالي">
+    <h3>تيشيرت صيفي - أزرق</h3>
+    <p>تيشيرت برسومات صيفية خفيفة وعبارة عربية</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20صيفي%20أزرق" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="نساء" data-size="M" data-color="خوخي">
+    <img src="C:\Users\pc\Downloads\images (3).jpeg" alt="تيشيرت صيفي خوخي">
+    <h3>تيشيرت صيفي - خوخي</h3>
+    <p>رسالة تحفيزية بتصميم ناعم يناسب الأجواء الصيفية</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20صيفي%20خوخي" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="رجالي" data-size="L" data-color="أخضر">
+    <img src="C:\Users\pc\Downloads\images (2).jpeg" alt="تيشيرت صيفي نعناعي">
+    <h3>تيشيرت صيفي - نعناعي</h3>
+    <p>خامة مريحة وتصميم بلون أخضر ناعم مع عبارة عربية</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20صيفي%20نعناعي" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="أطفال" data-size="S" data-color="بنفسجي">
+    <img src="C:\Users\pc\Downloads\_20222511713470324_1.jpg" alt="تيشيرت صيفي بنفسجي للأطفال">
+    <h3>تيشيرت صيفي - بنفسجي للأطفال</h3>
+    <p>رسومات مرحة ورسالة إيجابية للأطفال بلون بنفسجي فاتح</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20بنفسجي%20للأطفال" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="رجالي" data-size="M" data-color="أخضر">
+    <img src="C:\Users\pc\Downloads\TT-LAT-DreamBig_800x800_Flat-Shirt_test.webp" alt="T-shirt with quote - Dream big">
+    <h3>تيشيرت نعناعي - Dream big</h3>
+    <p>تصميم صيفي برسالة تحفيزية: Dream big, start small</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20Dream%20Big%20نعناعي" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="نسائي" data-size="M" data-color="بنفسجي">
+    <img src="C:\Users\pc\Downloads\07d8e3d2-1bcc-483f-bcdf-7ade75b0f849.png" alt="تيشيرت Believe in yourself">
+    <h3>تيشيرت بنفسجي - Believe in yourself</h3>
+    <p>رسالة تحفيزية بتصميم أنيق: Believe in yourself and you will be unstoppable</p>
+    <span class="price">80 درهم</span>
+    <a href="https://wa.me/212600000000?text=أرغب%20في%20شراء%20تيشيرت%20Believe%20in%20yourself" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+  <div class="product" data-category="أطفال" data-size="S" data-color="أزرق">
+    <img src="C:\Users\pc\Downloads\17aa9523-2d3d-48b9-8bf3-524f4110aaba-1000x1000-bBt82NBRGf24Eo5skWRf5FivD2OrjxFWfbBR16dk.webp" alt="T-shirt with quote - Every day">
+    <h3>تيشيرت أزرق - Every Day</h3>
+    <p>تيشيرت برسالة إيجابية: Every day is a new chance to shine</p>
+    <span class="price">80 درهم</span>
+    <a href="C:\Users\pc\Downloads\86867634-7d19-464c-873c-7ae1c4c2b271-1000x723.webp" target="_blank" style="display:inline-block;background-color:#25D366;color:white;padding:10px 15px;border-radius:5px;text-decoration:none;margin-top:10px;">اطلب عبر واتساب</a>
+  </div>
+</section>
+<script>
+  function filterProducts() {
+    const category = document.getElementById('filter').value;
+    const color = document.getElementById('colorFilter').value;
+    const price = document.getElementById('priceFilter').value;
+    const products = document.querySelectorAll('.product');
+    const size = document.getElementById('sizeFilter').value;
+
+    products.forEach(p => {
+      const type = p.getAttribute('data-category') || 'الكل';
+      const text = p.innerText;
+      let show = (category === 'all' || type === category);
+
+      if (color !== 'all') {
+        show = show && text.includes(color);
+      }
+      if (price !== 'all') {
+        const priceText = p.querySelector('.price').innerText.replace(' درهم', '');
+        const priceValue = parseFloat(priceText);
+        if (price === '<80') show = show && priceValue < 80;
+        else if (price === '=80') show = show && priceValue === 80;
+        else if (price === '>80') show = show && priceValue > 80;
+      }
+      if (size !== 'all') {
+        show = show && text.includes(size);
+      }
+      p.style.display = show ? 'block' : 'none';
+    });
+  }
+  const size = document.getElementById('sizeFilter').value;
+      if (size !== 'all') {
+        show = show && text.includes(size);
+      }
+function autoDarkMode() {
+  const hour = new Date().getHours();
+  if (hour >= 19 || hour < 6) toggleDarkMode();
+}
+autoDarkMode();
+
+function toggleDarkMode() {
+  const darkStyles = `
+    body {
+      background-color: #121212 !important;
+      color: #e0e0e0 !important;
+    }
+    .product, #gift, #order {
+      background-color: #1e1e1e !important;
+      color: #f0f0f0 !important;
+    }
+    nav, header, footer {
+      background-color: #000 !important;
+      color: #ff7b39 !important;
+    }
+    button, a {
+      background-color: #333 !important;
+      color: white !important;
+    }
+  `;
+  const style = document.getElementById("dark-mode-style");
+  if (style.innerHTML === "") {
+    style.innerHTML = darkStyles;
+  } else {
+    style.innerHTML = "";
+  }
+}
+</script>
+<footer>
+  <p>جميع الحقوق محفوظة © Big Dream 2025</p>
+  <p>تاريخ التحديث: مايو 2025</p>
+<p id="today-date"></p>
+<div id="gift" style="margin: 30px auto; padding: 20px; max-width: 400px; text-align: center; background: #fff8ed; border: 2px dashed #ff7b39; border-radius: 10px;">
+  <h3 style="color: #ff6600;">🎉 صندوق الهدايا الصيفي!</h3>
+  <p style="color: #444;">اشتر الآن بقيمة تفوق 300 درهم واحصل على هدية مفاجأة مجانية!</p>
+  <button onclick="alert('صندوق الهدايا يحتوي على مفاجآت صيفية! سيتم إضافته تلقائيًا لطلبك إذا تجاوز 300 درهم.')" style="padding: 10px 20px; background: #ff6600; color: white; border: none; border-radius: 5px; cursor: pointer;">اعرف المزيد</button>
+</div>
+
+<div id="order" style="margin: 40px auto; padding: 20px; max-width: 500px; background: #f9f9f9; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+  <h3 style="color:#ff6600; text-align:center;">📦 نموذج الطلب السريع</h3>
+  <form onsubmit="submitOrder(event)">
+    <label>الاسم الكامل:</label><br>
+    <input type="text" required style="width:100%; padding:8px; margin:5px 0;"><br>
+    <label>رقم الهاتف:</label><br>
+    <input type="tel" required style="width:100%; padding:8px; margin:5px 0;"><br>
+    <label>نوع التيشيرت:</label><br>
+    <select required style="width:100%; padding:8px; margin:5px 0;">
+      <option>رجالي</option>
+      <option>نسائي</option>
+      <option>أطفال</option>
+    </select><br>
+    <label>المقاس:</label><br>
+    <select required style="width:100%; padding:8px; margin:5px 0;">
+      <option>S</option>
+      <option>M</option>
+      <option>L</option>
+      <option>XL</option>
+    </select><br>
+    <button type="submit" style="margin-top:10px; padding:10px 20px; background-color:#ff6600; color:white; border:none; border-radius:5px; cursor:pointer;">أرسل الطلب</button>
+  </form>
+</div>
+
+<button onclick="scrollToTop()" style="position: fixed; bottom: 20px; left: 20px; padding: 10px 15px; background: #ff6600; color: white; border: none; border-radius: 5px; cursor: pointer;">🔝 إلى الأعلى</button>
+<section style="background-color: #f9f9f9; padding: 40px 20px; text-align: center;">
+  <h2 style="color: #ff6600;">✨ أنواع التأثيرات لمتجر Big Dream</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;">
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #2c2c2c;">💼 التأثير الاقتصادي</h3>
+      <p style="color: #555;">ندعم الإنتاج المحلي ونوفر فرص شغل للشباب المغربي عبر التصنيع والتوزيع الوطني.</p>
+    </div>
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #2c2c2c;">👥 التأثير الاجتماعي</h3>
+      <p style="color: #555;">نعزز الثقة بالنفس ونشجع الرسائل الإيجابية للشباب من خلال التصاميم الفريدة.</p>
+    </div>
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #2c2c2c;">🌱 التأثير البيئي</h3>
+      <p style="color: #555;">نستخدم خامات قطنية طبيعية ونراعي تقليل النفايات في عملية التغليف.</p>
+    </div>
+  </div>
+<section style="background-color: #f0f9ff; padding: 40px 20px; text-align: center;">
+  <h2 style="color: #0077cc;">🌟 Inspirational English Quotes</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 30px;">
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+      <p style="font-style: italic; color: #333;">“Dream big, start small, act now.”</p>
+    </div>
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+      <p style="font-style: italic; color: #333;">“Believe in yourself and you will be unstoppable.”</p>
+    </div>
+    <div style="width: 300px; background-color: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+      <p style="font-style: italic; color: #333;">“Every day is a new chance to shine.”</p>
+    </div>
+  </div>
+</section>
+</footer>
+<script>
+function submitOrder(event) {
+  event.preventDefault();
+  alert("✅ تم إرسال طلبك بنجاح! سنتواصل معك قريبًا.");
+}
+</script>
+<script>
+  const today = new Date();
+  const dateString = `تاريخ اليوم: ${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}`;
+  document.getElementById("today-date").innerText = dateString;
+  const clock = document.createElement('p');
+  clock.id = 'clock';
+  clock.style.fontWeight = 'bold';
+  document.querySelector('footer').appendChild(clock);
+
+  function updateClock() {
+    const now = new Date();
+    const timeString = `الساعة الآن: ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    document.getElementById("clock").innerText = timeString;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+// عداد تنازلي حتى تاريخ محدد
+  const countdownEl = document.getElementById("countdown");
+  const endDate = new Date("2025-06-30T23:59:59").getTime();
+  const countdownInterval = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = endDate - now;
+    if (distance < 0) {
+      clearInterval(countdownInterval);
+      countdownEl.innerHTML = "انتهى العرض";
+      return;
+    }
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    countdownEl.innerHTML = `ينتهي العرض خلال: ${days} يوم ${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+  }, 1000);
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+setTimeout(() => {
+  alert("👋 مرحباً بك في متجر Big Dream! اكتشف أفضل العروض الصيفية الآن 🌞");
+}, 10000);
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.product').forEach(product => {
+    const rect = product.getBoundingClientRect();
+    if (rect.top <= window.innerHeight - 50) {
+      product.classList.add('visible');
+    }
+  });
+});
+</script>
+</body>
+</html>
